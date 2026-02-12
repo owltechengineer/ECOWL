@@ -68,6 +68,7 @@ function PreventivoForm() {
   const [tipoCliente, setTipoCliente] = useState<string>('');
   const [settore, setSettore] = useState<string>('');
   const [files, setFiles] = useState<UploadedFile[]>([]);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -545,9 +546,25 @@ function PreventivoForm() {
               </AnimatePresence>
             </div>
 
+            {/* ── Privacy consent ────────────────────────── */}
+            <div className="flex items-start gap-2.5">
+              <input
+                type="checkbox"
+                id="privacy"
+                checked={privacyAccepted}
+                onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                className="mt-0.5 accent-[#FF6600] cursor-pointer"
+              />
+              <label htmlFor="privacy" className="font-mono text-[9px] md:text-[10px] text-[#999] leading-relaxed cursor-pointer">
+                Ho letto e accetto la{' '}
+                <a href="/privacy-policy" target="_blank" className="text-[#FF6600] underline hover:text-white">Privacy Policy</a>.
+                I dati forniti saranno trattati per rispondere alla richiesta di preventivo ai sensi dell&apos;art. 6.1.b del GDPR.
+              </label>
+            </div>
+
             {/* ── Submit ────────────────────────────────── */}
             <div className="flex justify-end pt-4">
-              <Button type="submit" variant="cta" size="lg" disabled={isSubmitting}>
+              <Button type="submit" variant="cta" size="lg" disabled={isSubmitting || !privacyAccepted}>
                 {isSubmitting ? (
                   <>
                     <Loader2 size={16} className="animate-spin mr-2" />
