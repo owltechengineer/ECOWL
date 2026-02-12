@@ -115,16 +115,28 @@ export default function Footer({ settings }: FooterProps) {
           <p className="font-mono text-[10px] text-[#555]">
             © {year} {siteName}. Tutti i diritti riservati.
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-3 md:gap-6">
+            <a
+              href="/privacy-policy"
+              className="font-mono text-[9px] md:text-[10px] text-[#555] hover:text-[#FF6600] transition-colors"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/cookie-policy"
+              className="font-mono text-[9px] md:text-[10px] text-[#555] hover:text-[#FF6600] transition-colors"
+            >
+              Cookie Policy
+            </a>
             <a
               href="/creative"
-              className="font-mono text-[10px] text-[#555] hover:text-[#FF6600] transition-colors"
+              className="font-mono text-[9px] md:text-[10px] text-[#555] hover:text-[#FF6600] transition-colors"
             >
               Playground 3D
             </a>
             <a
               href="/admin"
-              className="font-mono text-[10px] text-[#555] hover:text-[#FF6600] transition-colors"
+              className="font-mono text-[9px] md:text-[10px] text-[#555] hover:text-[#FF6600] transition-colors"
             >
               Admin
             </a>

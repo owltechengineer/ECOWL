@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
+import CookieBanner from '@/components/ui/CookieBanner';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -35,8 +37,26 @@ export default function RootLayout({
 }) {
   return (
     <html lang="it">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-2LKVJMSYR9"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              analytics_storage: 'denied',
+            });
+            gtag('js', new Date());
+            gtag('config', 'G-2LKVJMSYR9', { anonymize_ip: true });
+          `}
+        </Script>
+      </head>
       <body className="font-mono antialiased bg-black text-white">
         {children}
+        <CookieBanner />
         <Toaster
           position="bottom-right"
           toastOptions={{
