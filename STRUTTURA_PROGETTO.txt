@@ -1,0 +1,1298 @@
+================================================================================
+  ECOWL — DOCUMENTAZIONE COMPLETA DELLA STRUTTURA DEL PROGETTO
+  Generato il: 11 Febbraio 2026
+================================================================================
+
+
+================================================================================
+  1. PANORAMICA GENERALE
+================================================================================
+
+  Nome progetto:    owltech (ECOWL)
+  Versione:         1.0.0
+  Framework:        Next.js 16.1.6 (App Router)
+  Runtime:          React 19.2.3
+  Linguaggio:       TypeScript (strict mode)
+  Styling:          Tailwind CSS v4
+  Database:         Supabase (PostgreSQL)
+  3D Engine:        Three.js + React Three Fiber
+  Animazioni:       Framer Motion
+  Deploy:           Next.js (Turbopack abilitato)
+
+
+================================================================================
+  2. DIPENDENZE PRINCIPALI (package.json)
+================================================================================
+
+  PRODUZIONE:
+  - next 16.1.6                  — Framework React SSR/SSG
+  - react 19.2.3                 — Libreria UI
+  - react-dom 19.2.3             — Rendering DOM
+  - @supabase/supabase-js        — Client Supabase
+  - framer-motion                — Animazioni dichiarative
+  - @react-three/fiber           — React renderer per Three.js
+  - @react-three/drei            — Helper per Three.js
+  - three                        — Engine 3D
+  - nodemailer                   — Invio email SMTP
+  - react-hook-form              — Gestione form
+  - zod                          — Validazione schema
+  - react-hot-toast              — Notifiche toast
+  - lucide-react                 — Icone SVG
+  - clsx                         — Utility per classnames
+
+  SVILUPPO:
+  - tailwindcss v4               — Framework CSS utility-first
+  - @tailwindcss/postcss         — Plugin PostCSS per Tailwind
+  - typescript                   — Tipizzazione statica
+  - eslint                       — Linting
+  - eslint-config-next           — Config ESLint per Next.js
+  - @types/node                  — Tipi Node.js
+  - @types/nodemailer            — Tipi Nodemailer
+  - @types/three                 — Tipi Three.js
+
+
+================================================================================
+  3. STRUTTURA DIRECTORY COMPLETA
+================================================================================
+
+  ECOWL/
+  ├── .next/                          # Output build Next.js (generato)
+  ├── node_modules/                   # Dipendenze (generato)
+  ├── public/                         # Asset statici
+  │   ├── logo.png                    #   Logo formato PNG
+  │   └── logo.svg                    #   Logo formato SVG
+  ├── src/                            # Codice sorgente
+  │   ├── app/                        #   App Router Next.js
+  │   │   ├── admin/                  #     Pannello amministrazione
+  │   │   │   ├── blog/page.tsx       #       CRUD articoli blog
+  │   │   │   ├── hero/page.tsx       #       CRUD contenuto hero
+  │   │   │   ├── layout.tsx          #       Layout admin con sidebar
+  │   │   │   ├── page.tsx            #       Dashboard admin
+  │   │   │   ├── preventivi/page.tsx #       Gestione preventivi
+  │   │   │   ├── progetti/page.tsx   #       CRUD progetti
+  │   │   │   ├── servizi/page.tsx    #       CRUD servizi
+  │   │   │   ├── settings/page.tsx   #       Impostazioni sito
+  │   │   │   └── shop/page.tsx       #       CRUD prodotti shop
+  │   │   ├── api/                    #     API Routes
+  │   │   │   ├── admin/              #       API admin
+  │   │   │   │   ├── [table]/route.ts#         CRUD generico tabelle
+  │   │   │   │   └── export/route.ts #         Esportazione CSV
+  │   │   │   ├── preventivo/route.ts #       Invio preventivo
+  │   │   │   └── upload/route.ts     #       Upload file
+  │   │   ├── blog/                   #     Pagine blog
+  │   │   │   ├── [slug]/page.tsx     #       Articolo singolo
+  │   │   │   └── page.tsx            #       Lista articoli
+  │   │   ├── creative/page.tsx       #     Pagina playground 3D
+  │   │   ├── globals.css             #     Stili globali + tema
+  │   │   ├── layout.tsx              #     Layout root applicazione
+  │   │   ├── page.tsx                #     Homepage
+  │   │   ├── preventivo/page.tsx     #     Form richiesta preventivo
+  │   │   ├── progetti/               #     Pagine progetti
+  │   │   │   ├── [slug]/page.tsx     #       Progetto singolo
+  │   │   │   └── page.tsx            #       Lista progetti
+  │   │   └── shop/                   #     Pagine shop
+  │   │       ├── [slug]/page.tsx     #       Prodotto singolo
+  │   │       └── page.tsx            #       Lista prodotti
+  │   ├── components/                 #   Componenti React
+  │   │   ├── admin/                  #     Componenti admin
+  │   │   │   ├── DataTable.tsx       #       Tabella dati con CRUD
+  │   │   │   ├── Sidebar.tsx         #       Sidebar navigazione
+  │   │   │   └── StatsCard.tsx       #       Card statistiche
+  │   │   ├── layout/                 #     Componenti layout
+  │   │   │   ├── Footer.tsx          #       Footer sito
+  │   │   │   └── Header.tsx          #       Header con navigazione
+  │   │   ├── sections/               #     Sezioni homepage
+  │   │   │   ├── BlogPreview.tsx     #       Anteprima blog
+  │   │   │   ├── Hero.tsx            #       Sezione hero
+  │   │   │   ├── PreventivoPreview.tsx#      CTA preventivo
+  │   │   │   ├── Progetti.tsx        #       Griglia progetti
+  │   │   │   ├── Servizi.tsx         #       Griglia servizi
+  │   │   │   └── ShopPreview.tsx     #       Anteprima shop
+  │   │   ├── three/                  #     Componenti 3D
+  │   │   │   ├── BackgroundScene.tsx #       Sfondo 3D persistente
+  │   │   │   ├── BackgroundWrapper.tsx#      Wrapper client-only
+  │   │   │   ├── CreativeScene.tsx   #       Scena 3D interattiva
+  │   │   │   └── HeroScene.tsx       #       Scena hero (non usata)
+  │   │   └── ui/                     #     Componenti UI riusabili
+  │   │       ├── Badge.tsx           #       Badge con varianti
+  │   │       ├── Button.tsx          #       Bottone con varianti
+  │   │       ├── Card.tsx            #       Card animata
+  │   │       ├── Input.tsx           #       Input, Textarea, Select
+  │   │       ├── Modal.tsx           #       Modale con backdrop
+  │   │       └── SectionTitle.tsx    #       Titolo sezione
+  │   ├── lib/                        #   Librerie e utility
+  │   │   ├── constants.ts           #     Costanti design system
+  │   │   ├── email.ts               #     Invio email
+  │   │   ├── security.ts            #     Sicurezza e validazione
+  │   │   ├── supabase/              #     Client Supabase
+  │   │   │   ├── client.ts          #       Client browser
+  │   │   │   ├── queries.ts         #       Query database
+  │   │   │   └── server.ts          #       Client server
+  │   │   └── utils.ts               #     Utility generiche
+  │   └── types/                      #   Definizioni TypeScript
+  │       └── index.ts               #     Tipi condivisi
+  ├── supabase/                       # Schema e migrazioni DB
+  │   ├── migration_add_cover_image_servizi.sql
+  │   ├── migration_preventivi_v2.sql
+  │   ├── schema.sql
+  │   └── seed.sql
+  ├── env.example                     # Template variabili ambiente
+  ├── eslint.config.mjs               # Configurazione ESLint
+  ├── logo.png                        # Logo (copia root)
+  ├── logo.svg                        # Logo SVG (copia root)
+  ├── next.config.ts                  # Configurazione Next.js
+  ├── package.json                    # Dipendenze e script
+  ├── package-lock.json               # Lock file npm
+  ├── postcss.config.mjs              # Configurazione PostCSS
+  └── tsconfig.json                   # Configurazione TypeScript
+
+
+================================================================================
+  4. CONFIGURAZIONI DETTAGLIATE
+================================================================================
+
+  --- tsconfig.json ---
+  Target:           ES2017
+  Module:           ESNext
+  JSX:              react-jsx
+  Strict:           true
+  Path Alias:       @/* → ./src/*
+  Plugin:           next (per supporto App Router)
+
+  --- next.config.ts ---
+  Turbopack:        Abilitato con resolve root
+  Images:           Pattern remoti per *.supabase.co (immagini da Supabase)
+
+  --- postcss.config.mjs ---
+  Plugin:           @tailwindcss/postcss (Tailwind v4)
+
+  --- eslint.config.mjs ---
+  Estende:          next/core-web-vitals
+
+
+================================================================================
+  5. VARIABILI D'AMBIENTE
+================================================================================
+
+  Variabile                          | Usata in            | Scopo
+  -----------------------------------|---------------------|---------------------------
+  NEXT_PUBLIC_SUPABASE_URL           | client.ts, server.ts| URL progetto Supabase
+  NEXT_PUBLIC_SUPABASE_ANON_KEY      | client.ts           | Chiave anonima (client)
+  SUPABASE_SERVICE_ROLE_KEY          | server.ts           | Chiave admin (server)
+  NEXT_PUBLIC_SITE_URL               | (opzionale)         | URL base del sito
+  SMTP_HOST                          | email.ts            | Host server SMTP
+  SMTP_PORT                          | email.ts            | Porta SMTP
+  SMTP_SECURE                        | email.ts            | Flag TLS
+  SMTP_USER                          | email.ts            | Utente SMTP
+  SMTP_PASS                          | email.ts            | Password SMTP
+  SMTP_FROM                          | email.ts            | Indirizzo mittente
+  NOTIFICATION_EMAIL                 | email.ts            | Email notifiche preventivi
+
+  File:
+  - env.example    → Template con placeholder
+  - .env.local     → Valori reali (NON committato, contiene segreti)
+
+
+================================================================================
+  6. ROTTE DELL'APPLICAZIONE
+================================================================================
+
+  PAGINE PUBBLICHE:
+  ──────────────────────────────────────────────────────────────────────────
+  /                         Homepage (Hero, Servizi, Progetti, Shop, Blog)
+  /blog                     Lista articoli blog
+  /blog/[slug]              Articolo blog singolo
+  /shop                     Lista prodotti shop
+  /shop/[slug]              Dettaglio prodotto singolo
+  /progetti                 Lista progetti
+  /progetti/[slug]          Dettaglio progetto singolo
+  /preventivo               Form richiesta preventivo
+  /creative                 Playground 3D interattivo
+
+  PAGINE ADMIN:
+  ──────────────────────────────────────────────────────────────────────────
+  /admin                    Dashboard con statistiche
+  /admin/hero               Gestione contenuto hero
+  /admin/servizi            Gestione servizi
+  /admin/progetti           Gestione progetti
+  /admin/shop               Gestione prodotti
+  /admin/blog               Gestione articoli blog
+  /admin/preventivi         Gestione preventivi ricevuti
+  /admin/settings           Impostazioni sito
+
+  API ROUTES:
+  ──────────────────────────────────────────────────────────────────────────
+  GET/POST/PATCH/DELETE
+    /api/admin/[table]      CRUD generico per tabelle Supabase
+  GET
+    /api/admin/export        Esportazione CSV di qualsiasi tabella
+  POST
+    /api/preventivo          Invio preventivo (validazione + email)
+  POST
+    /api/upload              Upload file su Supabase Storage
+
+
+================================================================================
+  7. DETTAGLIO FILE SORGENTE — FUNZIONI, EXPORT, IMPORT
+================================================================================
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/types/index.ts — DEFINIZIONI TIPI TYPESCRIPT
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     (nessuno)
+
+  Export:
+  - HeroContent       → Tipo contenuto hero (titolo, sottotitolo, CTA)
+  - Servizio          → Tipo servizio (nome, descrizione, icona, cover)
+  - Progetto          → Tipo progetto (titolo, slug, immagine, categoria)
+  - Prodotto          → Tipo prodotto shop (nome, prezzo, immagine, slug)
+  - BlogPost          → Tipo articolo blog (titolo, slug, contenuto, data)
+  - Preventivo        → Tipo preventivo (dati cliente, servizi, allegati)
+  - SiteSettings      → Tipo impostazioni sito (email, social, telefono)
+  - AdminUser         → Tipo utente admin
+  - TableName         → Union type nomi tabelle Supabase
+  - ApiResponse       → Tipo risposta API generica
+
+  Descrizione: Definisce tutti i tipi TypeScript condivisi nel progetto,
+  allineati con lo schema del database Supabase.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/lib/utils.ts — UTILITY GENERICHE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     clsx, ClassValue
+
+  Export:
+  - cn(...)            → Merge classnames con clsx (per Tailwind)
+  - formatDate(date)   → Formatta data in formato leggibile
+  - formatPrice(n)     → Formatta prezzo in valuta (CHF/EUR)
+  - slugify(str)       → Converte stringa in slug URL-safe
+  - truncate(str, n)   → Tronca stringa a n caratteri con "..."
+  - generateId()       → Genera ID univoco
+
+  Descrizione: Funzioni utility riutilizzabili per formattazione,
+  manipolazione stringhe e generazione identificativi.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/lib/constants.ts — COSTANTI DEL DESIGN SYSTEM
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     (nessuno)
+
+  Export:
+  - COLORS              → Palette colori del design system
+  - NAV_ITEMS           → Voci di navigazione (label, href)
+  - ADMIN_NAV           → Voci navigazione pannello admin
+  - TIPO_CLIENTE_OPTIONS→ Opzioni tipo cliente (privato, azienda, ecc.)
+  - SETTORE_OPTIONS     → Opzioni settore di appartenenza
+  - ALLOWED_FILE_TYPES  → Tipi file consentiti per upload
+  - MAX_FILE_SIZE       → Dimensione massima singolo file
+  - MAX_TOTAL_SIZE      → Dimensione massima totale upload
+  - SERVIZI_ICONS       → Mappatura icone per servizi
+
+  Descrizione: Tutte le costanti centralizzate del progetto: colori,
+  navigazione, opzioni form, limiti upload, icone servizi.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/lib/email.ts — SISTEMA INVIO EMAIL
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     nodemailer
+
+  Export:
+  - sendPreventivoEmail(data) → Invia email notifica preventivo via SMTP
+
+  Descrizione: Configura trasporto SMTP con nodemailer e invia email
+  di notifica quando viene ricevuto un nuovo preventivo. Utilizza le
+  variabili d'ambiente SMTP_* per la configurazione.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/lib/security.ts — SICUREZZA E VALIDAZIONE INPUT
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     (nessuno)
+
+  Export:
+  - sanitizeString(str)          → Rimuove caratteri pericolosi da stringa
+  - isValidEmail(email)          → Valida formato email
+  - isValidPhone(phone)          → Valida formato numero telefono
+  - containsMaliciousContent(str)→ Rileva contenuto malevolo (XSS, SQL inj.)
+  - isValidFileName(name)        → Valida nome file per upload
+  - checkRateLimit(ip)           → Rate limiting per IP
+  - sanitizeFormData(data)       → Sanitizza tutti i campi di un form
+  - isValidSupabaseUrl(url)      → Verifica URL Supabase valido
+
+  Descrizione: Modulo di sicurezza completo con sanitizzazione input,
+  validazione email/telefono, rilevamento attacchi, rate limiting IP,
+  e validazione file upload.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/lib/supabase/client.ts — CLIENT SUPABASE (BROWSER)
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     createClient da @supabase/supabase-js
+
+  Export:
+  - supabase → Istanza client Supabase per uso lato client (browser)
+
+  Descrizione: Crea e esporta il client Supabase con chiave anonima
+  per operazioni lato browser. Usa NEXT_PUBLIC_SUPABASE_URL e
+  NEXT_PUBLIC_SUPABASE_ANON_KEY.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/lib/supabase/server.ts — CLIENT SUPABASE (SERVER)
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     createClient da @supabase/supabase-js
+
+  Export:
+  - supabaseAdmin → Istanza client Supabase con privilegi admin
+
+  Descrizione: Crea e esporta il client Supabase con service role key
+  per operazioni server-side con accesso completo al database.
+  Usa SUPABASE_SERVICE_ROLE_KEY.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/lib/supabase/queries.ts — QUERY DATABASE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     supabase da ./client, tipi da @/types
+
+  Export:
+  - getHero()                → Recupera contenuto hero dalla tabella hero
+  - getServizi()             → Recupera lista servizi ordinata
+  - getProgetti()            → Recupera lista progetti pubblicati
+  - getProgettoBySlug(slug)  → Recupera singolo progetto per slug
+  - getProdotti()            → Recupera lista prodotti attivi
+  - getProdottoBySlug(slug)  → Recupera singolo prodotto per slug
+  - getBlogPosts()           → Recupera lista articoli blog pubblicati
+  - getBlogPostBySlug(slug)  → Recupera singolo articolo per slug
+  - getSiteSettings()        → Recupera impostazioni globali del sito
+
+  Descrizione: Funzioni helper per fetch dati da Supabase. Ogni funzione
+  esegue query specifiche con filtri, ordinamento e selezione campi.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/layout.tsx — LAYOUT ROOT DELL'APPLICAZIONE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     Metadata (Next.js), Toaster (react-hot-toast), globals.css
+
+  Export:
+  - metadata    → Metadati SEO del sito (title, description)
+  - RootLayout  → Componente layout root (default export)
+
+  Descrizione: Layout principale dell'applicazione. Avvolge tutte le
+  pagine con <html>, <body>, font, e il componente Toaster per le
+  notifiche. Include gli stili globali via globals.css.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/globals.css — STILI GLOBALI E DESIGN SYSTEM
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     tailwindcss
+
+  Contenuto:
+  - Importazione Tailwind CSS v4
+  - Variabili CSS del tema (colori, spaziature)
+  - Stili base (body, scrollbar, selezione)
+  - Classi utility personalizzate
+  - Stili tipografici (prose)
+  - Animazioni globali
+
+  Descrizione: File CSS globale che definisce il design system completo,
+  con variabili tema, stili base, e classi utility personalizzate.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/page.tsx — HOMEPAGE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     Header, Footer, Hero, Servizi, Progetti, ShopPreview,
+              PreventivoPreview, BlogPreview, BackgroundWrapper,
+              query functions da @/lib/supabase/queries
+
+  Export:
+  - revalidate = 60  → ISR: rigenera pagina ogni 60 secondi
+  - HomePage         → Componente homepage (default export)
+
+  Descrizione: Pagina principale del sito. Componente server-side che
+  fetcha dati da Supabase e renderizza tutte le sezioni: Hero, Servizi,
+  Progetti, Shop, Preventivo CTA, Blog. Include sfondo 3D persistente.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/preventivo/page.tsx — FORM PREVENTIVO
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     react-hook-form, zod, framer-motion, icone Lucide,
+              react-hot-toast, Header, Footer, SectionTitle, Button,
+              Input, Textarea, costanti, supabase, useSearchParams,
+              Suspense
+
+  Export:
+  - PreventivoPage → Componente form preventivo (default export)
+
+  Descrizione: Pagina con form multi-step per richiesta preventivo.
+  Include selezione tipo cliente, settore, servizi richiesti,
+  descrizione progetto, upload allegati. Validazione con Zod,
+  gestione form con react-hook-form. Invio dati via API con
+  feedback visivo e stato di successo.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/creative/page.tsx — PLAYGROUND 3D
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     Suspense, dynamic (Next.js), motion, Button, CreativeScene
+
+  Export:
+  - CreativePage → Componente playground 3D (default export)
+
+  Descrizione: Pagina sperimentale con scena 3D interattiva (Three.js).
+  Permette esplorazione libera con OrbitControls. Include overlay UI
+  con controlli. CreativeScene caricato dinamicamente per evitare SSR.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/blog/page.tsx — LISTA BLOG
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     Header, Footer, SectionTitle, Card, formatDate,
+              getBlogPosts, getSiteSettings
+
+  Export:
+  - revalidate = 60   → ISR ogni 60 secondi
+  - metadata           → SEO metadata per pagina blog
+  - BlogPage           → Componente lista blog (default export)
+
+  Descrizione: Pagina lista articoli blog. Fetcha articoli pubblicati
+  da Supabase e li visualizza in griglia con Card.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/blog/[slug]/page.tsx — ARTICOLO BLOG SINGOLO
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     Header, Footer, formatDate, getBlogPostBySlug, getSiteSettings
+
+  Export:
+  - revalidate = 60        → ISR ogni 60 secondi
+  - generateMetadata(params)→ Genera metadati SEO dinamici per articolo
+  - BlogPostPage            → Componente articolo (default export)
+
+  Descrizione: Pagina dettaglio articolo blog con contenuto completo,
+  immagine di copertina, data, e metadati SEO dinamici basati su slug.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/shop/page.tsx — LISTA SHOP
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     Header, Footer, SectionTitle, Card, Button, Modal,
+              formatPrice, supabase
+
+  Export:
+  - revalidate = 60 → ISR ogni 60 secondi
+  - metadata         → SEO metadata per pagina shop
+  - ShopPage         → Componente lista shop (default export)
+
+  Descrizione: Pagina lista prodotti shop. Mostra griglia prodotti
+  con prezzi, immagini, e possibilità di aprire dettaglio in modale.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/shop/[slug]/page.tsx — PRODOTTO SINGOLO
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     Header, Footer, formatPrice, getProdottoBySlug, getSiteSettings
+
+  Export:
+  - revalidate = 60        → ISR ogni 60 secondi
+  - generateMetadata(params)→ Metadati SEO dinamici per prodotto
+  - ProductPage             → Componente prodotto (default export)
+
+  Descrizione: Pagina dettaglio prodotto con immagine, prezzo,
+  descrizione completa e metadati SEO dinamici.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/progetti/page.tsx — LISTA PROGETTI
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     Header, Footer, Progetti, getProgetti
+
+  Export:
+  - revalidate = 60 → ISR ogni 60 secondi
+  - metadata         → SEO metadata
+  - ProgettiPage     → Componente lista progetti (default export)
+
+  Descrizione: Pagina lista progetti. Riusa il componente Progetti
+  dalla homepage con dati fetchati server-side.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/progetti/[slug]/page.tsx — PROGETTO SINGOLO
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     Header, Footer, getProgettoBySlug, getSiteSettings
+
+  Export:
+  - revalidate = 60         → ISR ogni 60 secondi
+  - generateMetadata(params) → Metadati SEO dinamici
+  - ProgettoPage             → Componente progetto (default export)
+
+  Descrizione: Pagina dettaglio progetto singolo con immagini,
+  descrizione, tecnologie usate, e link al progetto live.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/layout/Header.tsx — HEADER / NAVIGAZIONE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     useState, useEffect, motion, AnimatePresence,
+              Menu, X (icone Lucide), NAV_ITEMS, Button
+
+  Export:
+  - Header → Componente header (default export)
+
+  Funzionalità:
+  - Header fisso in alto (fixed) con z-index elevato
+  - Logo con link alla home
+  - Navigazione desktop con voci da NAV_ITEMS
+  - Menu hamburger per mobile con AnimatePresence
+  - Cambio stile su scroll (trasparente → sfondo solido)
+  - CTA "Preventivo" nel menu
+  - Chiusura menu mobile su click link
+
+  Descrizione: Header responsive con navigazione animata, logo,
+  e comportamento scroll-aware per cambio trasparenza.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/layout/Footer.tsx — FOOTER
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     NAV_ITEMS, SiteSettings
+
+  Export:
+  - Footer → Componente footer (default export)
+
+  Props:
+  - settings?: SiteSettings (opzionale)
+
+  Funzionalità:
+  - Colonne: navigazione, contatti, social links
+  - Contatti recuperati da site_settings (email, telefono, indirizzo)
+  - Link social dinamici da impostazioni
+  - Copyright con anno corrente
+  - Link alla privacy policy
+
+  Descrizione: Footer responsive multi-colonna con navigazione,
+  informazioni di contatto e link social caricati dinamicamente.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/sections/Hero.tsx — SEZIONE HERO
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     motion, Button, HeroContent
+
+  Export:
+  - Hero → Componente sezione hero (default export)
+
+  Props:
+  - data?: HeroContent (opzionale, ha dati fallback)
+
+  Funzionalità:
+  - Titolo animato con Framer Motion (fade-in + slide-up)
+  - Sottotitolo animato con delay
+  - Due CTA: "Richiedi Preventivo" e "I Nostri Progetti"
+  - Dati fallback se non caricati da DB
+  - Overlay gradiente per leggibilità su sfondo 3D
+
+  Descrizione: Sezione hero full-height con headline, sottotitolo,
+  e pulsanti CTA animati. Supporta contenuto dinamico da Supabase.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/sections/Servizi.tsx — SEZIONE SERVIZI
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     useState, motion, Image, icone Lucide, SectionTitle,
+              Button, Modal, Servizio
+
+  Export:
+  - Servizi → Componente griglia servizi (default export)
+
+  Props:
+  - data?: Servizio[]
+
+  Funzionalità:
+  - Griglia card servizi animata (staggered)
+  - Icone mappate dinamicamente per servizio
+  - Immagine di copertina per ogni servizio
+  - Click su card apre Modal con dettaglio completo
+  - Bottone "Richiedi Preventivo" nel modal con servizio preselezionato
+
+  Descrizione: Griglia servizi con card animate, icone dinamiche,
+  immagini di copertina e modal dettaglio. Collegato al form preventivo.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/sections/Progetti.tsx — SEZIONE PROGETTI
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     motion, ArrowUpRight, SectionTitle, Button, Progetto
+
+  Export:
+  - Progetti → Componente griglia progetti (default export)
+
+  Props:
+  - data?: Progetto[]
+
+  Funzionalità:
+  - Griglia card progetti con immagini
+  - Animazione hover con overlay
+  - Link a pagina dettaglio progetto
+  - Badge categoria su ogni card
+  - Bottone "Vedi tutti i progetti"
+
+  Descrizione: Griglia progetti portfolio con card animate,
+  overlay hover e link alle pagine di dettaglio.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/sections/ShopPreview.tsx — ANTEPRIMA SHOP
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     useState, motion, icone Lucide, SectionTitle, Card,
+              Button, Modal, formatPrice, Prodotto
+
+  Export:
+  - ShopPreview → Componente anteprima shop (default export)
+
+  Props:
+  - data?: Prodotto[]
+
+  Funzionalità:
+  - Griglia prodotti in anteprima (max 6)
+  - Card con immagine, prezzo, nome
+  - Click apre Modal con dettaglio prodotto
+  - Prezzo formattato
+  - Bottone "Vai allo Shop" per lista completa
+
+  Descrizione: Anteprima prodotti shop per homepage con card,
+  modal dettaglio e link alla pagina shop completa.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/sections/PreventivoPreview.tsx — CTA PREVENTIVO
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     motion, icone Lucide, SectionTitle, Button
+
+  Export:
+  - PreventivoPreview → Componente CTA preventivo (default export)
+
+  Funzionalità:
+  - Sezione con sfondo evidenziato
+  - Lista feature/vantaggi con icone (check)
+  - Headline persuasiva
+  - CTA prominente verso /preventivo
+  - Animazione entrata con Framer Motion
+
+  Descrizione: Sezione call-to-action per guidare l'utente verso
+  il form preventivo. Include lista vantaggi e bottone CTA.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/sections/BlogPreview.tsx — ANTEPRIMA BLOG
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     motion, Calendar, SectionTitle, Card, Button,
+              formatDate, BlogPost
+
+  Export:
+  - BlogPreview → Componente anteprima blog (default export)
+
+  Props:
+  - data?: BlogPost[]
+
+  Funzionalità:
+  - Griglia articoli recenti (max 3)
+  - Card con immagine, titolo, excerpt, data
+  - Icona calendario con data formattata
+  - Link a pagina articolo completo
+  - Bottone "Leggi il Blog" per lista completa
+
+  Descrizione: Anteprima ultimi articoli blog per homepage con
+  card informative e link alla sezione blog completa.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/ui/Badge.tsx — COMPONENTE BADGE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     cn
+
+  Export:
+  - Badge → Componente badge (default export)
+
+  Props:
+  - children: ReactNode
+  - variant: 'default' | 'accent' | 'success' | 'warning' | 'danger'
+  - className?: string
+
+  Descrizione: Badge inline con varianti colore per categorizzazione
+  e status. Usa cn() per merge classnames condizionali.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/ui/Button.tsx — COMPONENTE BOTTONE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     cn, forwardRef, ButtonHTMLAttributes
+
+  Export:
+  - Button → Componente bottone (default export)
+
+  Props:
+  - variant: 'primary' | 'secondary' | 'ghost' | 'cta' | 'danger'
+  - size: 'sm' | 'md' | 'lg'
+  - href?: string (se presente, renderizza <a> invece di <button>)
+  - className?: string
+  - children: ReactNode
+  - ...ButtonHTMLAttributes
+
+  Descrizione: Bottone riusabile con 5 varianti di stile, 3 dimensioni,
+  supporto link (href), e forwarded ref. Usa forwardRef per compatibilità.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/ui/Card.tsx — COMPONENTE CARD
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     motion, cn
+
+  Export:
+  - Card → Componente card animata (default export)
+
+  Props:
+  - children: ReactNode
+  - className?: string
+  - hover?: boolean (default true)
+
+  Funzionalità:
+  - Animazione hover con scale e ombra
+  - Accenti decorativi negli angoli (pseudo-elementi)
+  - Bordo sottile con colore tema
+
+  Descrizione: Card container animata con effetti hover decorativi
+  e bordo tema. Usata come wrapper per contenuti vari.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/ui/Input.tsx — COMPONENTI FORM
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     cn, forwardRef, InputHTMLAttributes,
+              TextareaHTMLAttributes, SelectHTMLAttributes
+
+  Export:
+  - Input    → Campo input testo (named export)
+  - Textarea → Area testo multilinea (named export)
+  - Select   → Menu a tendina select (named export)
+
+  Props comuni:
+  - label?: string
+  - error?: string
+  - className?: string
+  - ...HTML attributes native
+
+  Descrizione: Set completo di componenti form con label, messaggi
+  di errore, e stili coerenti. Tutti usano forwardRef.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/ui/Modal.tsx — COMPONENTE MODALE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     useEffect, useCallback, motion, AnimatePresence, X (icona)
+
+  Export:
+  - Modal → Componente modale (default export)
+
+  Props:
+  - isOpen: boolean
+  - onClose: () => void
+  - title?: string
+  - children: ReactNode
+  - size?: 'sm' | 'md' | 'lg' | 'xl'
+
+  Funzionalità:
+  - Backdrop scuro con blur
+  - Animazione apertura/chiusura (scale + fade)
+  - Chiusura con tasto ESC
+  - Chiusura click su backdrop
+  - Blocco scroll body quando aperta
+  - Header con titolo e pulsante chiusura
+
+  Descrizione: Modale accessibile con animazioni, chiusura ESC,
+  backdrop click, e blocco scroll. Supporta 4 dimensioni.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/ui/SectionTitle.tsx — TITOLO SEZIONE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     motion
+
+  Export:
+  - SectionTitle → Componente titolo sezione (default export)
+
+  Props:
+  - label?: string (etichetta sopra il titolo)
+  - title: string
+  - description?: string
+
+  Funzionalità:
+  - Label small caps con colore accent
+  - Titolo grande con animazione entrata
+  - Descrizione opzionale sotto il titolo
+  - Animazione staggered (label → titolo → descrizione)
+
+  Descrizione: Titolo sezione riutilizzabile con label, heading,
+  e descrizione opzionale. Animato con Framer Motion.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/three/BackgroundScene.tsx — SFONDO 3D PERSISTENTE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     React hooks, Canvas, useFrame, useThree, Float,
+              MeshDistortMaterial, * as THREE
+
+  Export:
+  - BackgroundScene → Scena 3D sfondo (default export)
+
+  Componenti interni:
+  - DotWave         → Griglia di punti ondulanti
+  - MainShape       → Icosaedro principale distorto
+  - SecondaryShapes → Forme geometriche secondarie flottanti
+  - Scene           → Composizione scena con camera scroll-driven
+
+  Funzionalità:
+  - Griglia di punti (dot wave) che si muovono sinusoidalmente
+  - Icosaedro principale con MeshDistortMaterial
+  - Forme secondarie flottanti (ottaedro, torusKnot, dodecaedro)
+  - Camera che si muove in base allo scroll della pagina
+  - Rendering persistente su tutta la pagina (position: fixed)
+
+  Descrizione: Scena Three.js complessa che funge da sfondo
+  animato per tutto il sito. Reagisce allo scroll dell'utente.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/three/BackgroundWrapper.tsx — WRAPPER CLIENT-ONLY
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     useState, useEffect
+
+  Export:
+  - BackgroundWrapper → Wrapper lazy-load (default export)
+
+  Funzionalità:
+  - Verifica che siamo lato client (typeof window !== 'undefined')
+  - Import dinamico di BackgroundScene con next/dynamic
+  - Previene problemi di hydration SSR con Three.js
+  - Mostra nulla durante il caricamento server-side
+
+  Descrizione: Wrapper che carica dinamicamente la scena 3D solo
+  lato client per evitare errori di hydration con Next.js SSR.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/three/CreativeScene.tsx — SCENA 3D INTERATTIVA
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     useRef, useMemo, useState, Canvas, useFrame, useThree,
+              Float, OrbitControls, MeshDistortMaterial,
+              MeshWobbleMaterial, * as THREE
+
+  Export:
+  - CreativeScene → Scena 3D interattiva (default export)
+
+  Componenti interni:
+  - TorusKnotShape  → Torus knot con MeshDistortMaterial
+  - WobbleSphere    → Sfera con MeshWobbleMaterial
+  - OrbitingCubes   → Cubi in orbita circolare
+  - ParticleField   → Campo particelle flottanti
+  - GridPlane       → Piano griglia con trasparenza
+
+  Funzionalità:
+  - Scena interattiva con OrbitControls (drag, zoom, rotate)
+  - Torus knot distorto animato
+  - Sfera wobble animata
+  - Cubi in orbita circolare attorno al centro
+  - Campo di particelle flottanti
+  - Griglia wireframe di riferimento
+
+  Descrizione: Playground 3D completo per la pagina /creative.
+  Permette esplorazione libera della scena con mouse/touch.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/three/HeroScene.tsx — SCENA HERO (NON UTILIZZATA)
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     useRef, useMemo, Canvas, useFrame, useThree, Float,
+              MeshDistortMaterial, * as THREE
+
+  Export:
+  - HeroScene → Scena 3D hero (default export)
+
+  Nota: Questo componente NON è attualmente utilizzato nel progetto.
+  È stato sostituito da BackgroundScene per lo sfondo persistente.
+
+  Descrizione: Scena Three.js originale per la sezione hero con
+  icosaedro, griglia e particelle. Mantenuta come riferimento.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/admin/DataTable.tsx — TABELLA DATI ADMIN
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     useState, icone Lucide, Button
+
+  Export:
+  - DataTable → Componente tabella dati (default export)
+
+  Props:
+  - columns: { key, label, render? }[]
+  - data: any[]
+  - onAdd?: () => void
+  - onEdit?: (item) => void
+  - onDelete?: (id) => void
+  - searchable?: boolean
+  - exportable?: boolean
+
+  Funzionalità:
+  - Visualizzazione dati in tabella
+  - Ricerca testo tra le righe
+  - Pulsante esportazione CSV
+  - Azioni per riga: modifica, elimina
+  - Pulsante aggiungi nuovo record
+  - Render custom per colonne (funzione render)
+
+  Descrizione: Tabella dati generica per il pannello admin con
+  ricerca, CRUD actions, export CSV, e render colonne personalizzato.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/admin/Sidebar.tsx — SIDEBAR ADMIN
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     usePathname, Link, icone Lucide, ADMIN_NAV
+
+  Export:
+  - Sidebar → Componente sidebar (default export)
+
+  Funzionalità:
+  - Logo ECOWL con link alla home
+  - Navigazione verticale da ADMIN_NAV
+  - Evidenziazione voce attiva basata su pathname
+  - Icone per ogni voce di menu
+  - Link "Torna al sito"
+
+  Descrizione: Sidebar navigazione fissa per il pannello admin
+  con voci menu, evidenziazione pagina corrente, e link al sito.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/components/admin/StatsCard.tsx — CARD STATISTICHE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     motion, LucideIcon
+
+  Export:
+  - StatsCard → Componente stats card (default export)
+
+  Props:
+  - title: string
+  - value: string | number
+  - icon: LucideIcon
+  - color?: string
+
+  Descrizione: Card per dashboard admin che mostra una statistica
+  con icona, titolo e valore. Animata con Framer Motion.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/admin/layout.tsx — LAYOUT ADMIN
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     Sidebar
+
+  Export:
+  - metadata     → Metadati pagina admin
+  - AdminLayout  → Layout admin (default export)
+
+  Descrizione: Layout wrapper per tutte le pagine admin.
+  Include Sidebar a sinistra e area contenuto principale.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/admin/page.tsx — DASHBOARD ADMIN
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     icone Lucide, StatsCard, SectionTitle
+
+  Export:
+  - AdminDashboard → Dashboard admin (default export)
+
+  Funzionalità:
+  - Card statistiche (servizi, progetti, prodotti, preventivi)
+  - Quick links alle sezioni admin
+  - Panoramica generale del contenuto
+
+  Descrizione: Dashboard principale del pannello admin con
+  statistiche riassuntive e accesso rapido alle sezioni.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/admin/hero/page.tsx — ADMIN HERO
+  ════════════════════════════════════════════════════════════════════════
+
+  Export:     AdminHeroPage (default)
+  Descrizione: Pagina admin per modificare contenuto della sezione hero
+  (titolo, sottotitolo, CTA). CRUD completo con form di editing.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/admin/servizi/page.tsx — ADMIN SERVIZI
+  ════════════════════════════════════════════════════════════════════════
+
+  Export:     AdminServiziPage (default)
+  Descrizione: Pagina admin CRUD per gestire i servizi.
+  Include tabella, form creazione/modifica, upload immagine copertina.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/admin/progetti/page.tsx — ADMIN PROGETTI
+  ════════════════════════════════════════════════════════════════════════
+
+  Export:     AdminProgettiPage (default)
+  Descrizione: Pagina admin CRUD per gestire i progetti portfolio.
+  Include tabella, form con campi dettagliati, upload immagini.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/admin/shop/page.tsx — ADMIN SHOP
+  ════════════════════════════════════════════════════════════════════════
+
+  Export:     AdminShopPage (default)
+  Descrizione: Pagina admin CRUD per gestire i prodotti dello shop.
+  Include gestione prezzi, immagini, descrizioni, disponibilità.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/admin/blog/page.tsx — ADMIN BLOG
+  ════════════════════════════════════════════════════════════════════════
+
+  Export:     AdminBlogPage (default)
+  Descrizione: Pagina admin CRUD per gestire gli articoli del blog.
+  Include editor contenuto, gestione immagini, pubblicazione.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/admin/preventivi/page.tsx — ADMIN PREVENTIVI
+  ════════════════════════════════════════════════════════════════════════
+
+  Export:     AdminPreventiviPage (default)
+  Descrizione: Pagina admin per visualizzare e gestire i preventivi
+  ricevuti. Include tabella con filtri, dettaglio, e azioni.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/admin/settings/page.tsx — ADMIN IMPOSTAZIONI
+  ════════════════════════════════════════════════════════════════════════
+
+  Export:     AdminSettingsPage (default)
+  Descrizione: Pagina admin per gestire le impostazioni globali del sito
+  (email, telefono, indirizzo, social links, testi footer).
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/api/admin/[table]/route.ts — API CRUD GENERICA
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     NextRequest, NextResponse, supabaseAdmin, TableName
+
+  Export:
+  - GET(req, { params })    → Legge tutti i record della tabella
+  - POST(req, { params })   → Crea nuovo record nella tabella
+  - PATCH(req, { params })  → Aggiorna record esistente (richiede id)
+  - DELETE(req, { params }) → Elimina record (richiede id)
+
+  Tabelle supportate: hero, servizi, progetti, prodotti, blog_posts,
+  preventivi, site_settings
+
+  Descrizione: API route dinamica che gestisce operazioni CRUD per
+  qualsiasi tabella Supabase. Il parametro [table] determina la tabella.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/api/admin/export/route.ts — API ESPORTAZIONE CSV
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     NextRequest, NextResponse, supabaseAdmin
+
+  Export:
+  - GET(req) → Esporta tabella in formato CSV
+
+  Query params:
+  - table: nome tabella da esportare
+
+  Descrizione: Endpoint API che genera e scarica un file CSV con
+  tutti i dati di una tabella Supabase specificata.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/api/preventivo/route.ts — API INVIO PREVENTIVO
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     NextRequest, NextResponse, supabaseAdmin,
+              sanitizeFormData, checkRateLimit, isValidEmail,
+              sendPreventivoEmail
+
+  Export:
+  - POST(req) → Riceve e processa richiesta preventivo
+
+  Flusso:
+  1. Validazione rate limit per IP
+  2. Parsing body della richiesta
+  3. Sanitizzazione dati form
+  4. Validazione email e campi obbligatori
+  5. Inserimento record in tabella preventivi
+  6. Invio email notifica via SMTP
+  7. Risposta con conferma o errore
+
+  Descrizione: Endpoint API per l'invio di preventivi. Include
+  sicurezza completa: rate limiting, sanitizzazione, validazione,
+  inserimento DB, e notifica email.
+
+
+  ════════════════════════════════════════════════════════════════════════
+  src/app/api/upload/route.ts — API UPLOAD FILE
+  ════════════════════════════════════════════════════════════════════════
+
+  Import:     NextRequest, NextResponse, supabaseAdmin,
+              isValidFileName, ALLOWED_FILE_TYPES, MAX_FILE_SIZE
+
+  Export:
+  - POST(req) → Riceve e salva file su Supabase Storage
+
+  Flusso:
+  1. Parsing FormData con file
+  2. Validazione nome file
+  3. Validazione tipo MIME e magic bytes
+  4. Validazione dimensione file
+  5. Upload su Supabase Storage (bucket: preventivi-allegati)
+  6. Restituzione URL pubblico del file
+
+  Descrizione: Endpoint API per upload file allegati ai preventivi.
+  Include validazione completa: nome file, tipo, dimensione, magic bytes.
+
+
+================================================================================
+  8. DATABASE SUPABASE — SCHEMA E TABELLE
+================================================================================
+
+  TABELLE:
+  ──────────────────────────────────────────────────────────────────────────
+  hero            → Contenuto sezione hero (titolo, sottotitolo, CTA)
+  servizi         → Servizi offerti (nome, descrizione, icona, cover_image)
+  progetti        → Progetti portfolio (titolo, slug, immagine, categoria)
+  prodotti        → Prodotti shop (nome, prezzo, immagine, slug, desc.)
+  blog_posts      → Articoli blog (titolo, slug, contenuto, immagine, data)
+  preventivi      → Preventivi ricevuti (dati cliente, servizi, allegati)
+  site_settings   → Impostazioni sito (email, telefono, social, testi)
+
+  STORAGE:
+  ──────────────────────────────────────────────────────────────────────────
+  preventivi-allegati → Bucket per file allegati ai preventivi
+
+  MIGRAZIONI:
+  ──────────────────────────────────────────────────────────────────────────
+  schema.sql                           → Schema iniziale completo
+  seed.sql                             → Dati iniziali di esempio
+  migration_add_cover_image_servizi.sql→ Aggiunge campo cover_image a servizi
+  migration_preventivi_v2.sql          → Aggiunge tipo_cliente, settore,
+                                         allegati, provenienza a preventivi
+
+
+================================================================================
+  9. FLUSSI PRINCIPALI DELL'APPLICAZIONE
+================================================================================
+
+  FLUSSO HOMEPAGE:
+  1. Server fetcha dati da Supabase (hero, servizi, progetti, prodotti, blog)
+  2. Renderizza Header, BackgroundWrapper (3D), e tutte le sezioni
+  3. ISR: pagina rigenerata ogni 60 secondi
+
+  FLUSSO PREVENTIVO:
+  1. Utente naviga a /preventivo (opzionalmente con servizio preselezionato)
+  2. Compila form multi-campo con validazione Zod
+  3. Opzionalmente allega file (validati e uploadati via /api/upload)
+  4. Submit invia dati a /api/preventivo
+  5. API valida, sanitizza, salva su DB, invia email notifica
+  6. Utente vede stato successo
+
+  FLUSSO ADMIN:
+  1. Accesso a /admin → dashboard con statistiche
+  2. Navigazione via sidebar alle sezioni CRUD
+  3. Ogni sezione usa DataTable + form per gestire contenuti
+  4. Operazioni CRUD via API /api/admin/[table]
+  5. Export CSV via /api/admin/export
+
+  FLUSSO BLOG/SHOP/PROGETTI:
+  1. Pagina lista fetcha tutti i record da Supabase
+  2. Griglia con Card per ogni elemento
+  3. Click su elemento → pagina dettaglio con slug dinamico
+  4. Metadati SEO generati dinamicamente per ogni pagina
+
+
+================================================================================
+  10. TECNOLOGIE E PATTERN ARCHITETTURALI
+================================================================================
+
+  - App Router Next.js (Server Components + Client Components)
+  - ISR (Incremental Static Regeneration) con revalidate = 60
+  - Server-side data fetching nelle pagine
+  - API Routes per operazioni mutative (POST, PATCH, DELETE)
+  - Supabase come BaaS (Database + Storage + Auth)
+  - Tailwind CSS v4 per styling utility-first
+  - Framer Motion per animazioni dichiarative
+  - React Three Fiber per rendering 3D nel browser
+  - React Hook Form + Zod per gestione e validazione form
+  - Nodemailer per invio email SMTP
+  - Input sanitization e rate limiting per sicurezza
+  - Dynamic imports per componenti pesanti (Three.js)
+  - Path alias @/* per import puliti
+
+
+================================================================================
+  Fine documento — ECOWL Project Documentation
+================================================================================
