@@ -123,8 +123,8 @@ export default function Progetti({ progetti }: ProgettiProps) {
           transition={{ delay: 0.5 }}
           className="mt-6 md:mt-12 text-center"
         >
-          <Button variant="secondary" href="/shop">
-            Vai allo Shop →
+          <Button variant="secondary" href="/progetti">
+            Vedi tutti i progetti →
           </Button>
         </motion.div>
       </div>
