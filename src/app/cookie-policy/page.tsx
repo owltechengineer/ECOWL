@@ -4,14 +4,25 @@ import Footer from '@/components/layout/Footer';
 import { ArrowLeft } from 'lucide-react';
 import { getSiteSettings } from '@/lib/supabase/queries';
 
+const TITOLARE = {
+  nome: 'Fabiano Gaio',
+  indirizzo: 'Via Don Pozzi 17, 20844 Triuggio (MB), Italia',
+  telefono: '+39 339 637 2630',
+  email: 'contatti@email.it',
+  codiceFiscale: 'GAIFBN04R05B729P',
+};
+
 export const metadata: Metadata = {
   title: 'Cookie Policy',
-  description: 'Informativa sui cookie di OWLTECH ai sensi della normativa italiana ed europea.',
+  description: 'Informativa sui cookie ai sensi della normativa italiana ed europea.',
 };
 
 export default async function CookiePolicyPage() {
   const settings = await getSiteSettings();
-  const email = settings?.contact_email || 'info@owltech.it';
+  const siteName = settings?.site_name || TITOLARE.nome;
+  const email = settings?.contact_email || TITOLARE.email;
+  const address = settings?.address || TITOLARE.indirizzo;
+  const phone = settings?.phone || TITOLARE.telefono;
 
   return (
     <>
@@ -54,7 +65,7 @@ export default async function CookiePolicyPage() {
               <ul>
                 <li><strong>Cookie di sessione:</strong> necessari per la navigazione e l&apos;utilizzo delle funzionalità del sito.</li>
                 <li><strong>Cookie di autenticazione:</strong> utilizzati per l&apos;accesso all&apos;area amministrativa (<code>admin_token</code>).</li>
-                <li><strong>Cookie di preferenza:</strong> memorizzano la scelta dell&apos;utente riguardo al consenso dei cookie (<code>cookie_consent</code>).</li>
+                <li><strong>Preferenza consenso:</strong> la scelta dell&apos;utente riguardo ai cookie analitici viene memorizzata in localStorage (<code>cookie_consent</code>) per evitare di ripetere il banner ad ogni visita.</li>
               </ul>
 
               <h3>2.2 Cookie Analitici (Google Analytics)</h3>
@@ -84,6 +95,11 @@ export default async function CookiePolicyPage() {
                 <li><strong>Rifiutare i cookie analitici</strong> — cliccando su &quot;Rifiuta&quot;. In questo caso verranno installati solo i cookie tecnici necessari.</li>
               </ul>
               <p>
+                Puoi modificare le tue preferenze in qualsiasi momento cliccando su &quot;Gestisci cookie&quot;
+                nel footer del sito: il banner riapparirà e potrai accettare o rifiutare nuovamente i cookie analitici.
+                La revoca è agevole quanto la prestazione del consenso.
+              </p>
+              <p>
                 È inoltre possibile gestire i cookie tramite le impostazioni del proprio browser:
               </p>
               <ul>
@@ -101,16 +117,29 @@ export default async function CookiePolicyPage() {
                 (art. 6.1.f GDPR). I cookie analitici sono installati previo consenso
                 dell&apos;utente (art. 6.1.a GDPR), in conformità con il Provvedimento del Garante
                 Privacy n. 231 del 10 giugno 2021 (&quot;Linee guida cookie e altri strumenti di
-                tracciamento&quot;).
+                tracciamento&quot;) e con il D.lgs. 30 giugno 2003, n. 196 (Codice privacy), come
+                modificato dal D.lgs. 10 agosto 2018, n. 101.
               </p>
             </section>
 
             <section>
-              <h2>5. Diritti dell&apos;Utente</h2>
+              <h2>5. Titolare e Contatti</h2>
+              <p>
+                Il Titolare del trattamento è <strong>{siteName}</strong>, persona fisica residente in Italia
+                — {address}. Per contatti: <a href={`mailto:${email}`}>{email}</a>, Tel. <a href={`tel:${phone}`}>{phone}</a>.
+              </p>
+            </section>
+
+            <section>
+              <h2>6. Diritti dell&apos;Utente</h2>
               <p>
                 L&apos;utente può esercitare i diritti previsti dagli articoli 15-22 del GDPR
                 (accesso, rettifica, cancellazione, limitazione, opposizione, portabilità)
                 scrivendo a: <a href={`mailto:${email}`}>{email}</a>.
+              </p>
+              <p>
+                Puoi revocare il consenso ai cookie analitici in qualsiasi momento cliccando su
+                &quot;Gestisci cookie&quot; nel footer del sito. La revoca è agevole quanto la prestazione del consenso.
               </p>
               <p>
                 Per proporre reclamo: <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener noreferrer">Garante per la Protezione dei Dati Personali</a>.
@@ -118,7 +147,7 @@ export default async function CookiePolicyPage() {
             </section>
 
             <section>
-              <h2>6. Aggiornamenti</h2>
+              <h2>7. Aggiornamenti</h2>
               <p>
                 La presente Cookie Policy può essere aggiornata periodicamente. Si consiglia
                 di consultare questa pagina regolarmente.

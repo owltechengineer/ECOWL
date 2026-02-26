@@ -6,36 +6,12 @@ import SectionTitle from '@/components/ui/SectionTitle';
 import Button from '@/components/ui/Button';
 import type { Progetto } from '@/types';
 
-// Fallback quando il DB è vuoto
-const FALLBACK_PROGETTI: Partial<Progetto>[] = [
-  {
-    id: '1',
-    title: 'NeoBank Dashboard',
-    slug: 'neobank-dashboard',
-    description: 'Dashboard completa per una piattaforma fintech di nuova generazione.',
-    cover_image: null,
-    tags: ['React', 'TypeScript', 'Fintech'],
-    client_name: 'NeoBank S.r.l.',
-    year: 2025,
-  },
-  {
-    id: '2',
-    title: 'EcoTrack Platform',
-    slug: 'ecotrack-platform',
-    description: 'Piattaforma di monitoraggio ambientale con dati in tempo reale.',
-    cover_image: null,
-    tags: ['Next.js', 'IoT', 'Data Viz'],
-    client_name: 'EcoTrack',
-    year: 2025,
-  },
-];
-
 interface ProgettiProps {
   progetti?: Progetto[];
 }
 
 export default function Progetti({ progetti }: ProgettiProps) {
-  const items = progetti && progetti.length > 0 ? progetti : FALLBACK_PROGETTI;
+  const items = progetti && progetti.length > 0 ? progetti : [];
 
   return (
     <section id="progetti" className="section-padding bg-black/40 relative">
@@ -46,6 +22,13 @@ export default function Progetti({ progetti }: ProgettiProps) {
           description="Progetti reali per clienti reali. Ogni soluzione è un passo avanti."
         />
 
+        {items.length === 0 ? (
+          <div className="text-center py-10 md:py-16">
+            <p className="font-mono text-[10px] md:text-sm text-[#555]">
+              Prossimamente nuovi progetti.
+            </p>
+          </div>
+        ) : (
         <div className="grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-6">
           {items.map((progetto, i) => (
             <motion.a
@@ -115,6 +98,7 @@ export default function Progetti({ progetti }: ProgettiProps) {
             </motion.a>
           ))}
         </div>
+        )}
 
         <motion.div
           initial={{ opacity: 0 }}

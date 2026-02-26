@@ -128,6 +128,13 @@ export default function Footer({ settings }: FooterProps) {
             >
               Cookie Policy
             </a>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent('openCookieBanner'))}
+              className="font-mono text-[9px] md:text-[10px] text-[#555] hover:text-[#FF6600] transition-colors bg-transparent border-none cursor-pointer p-0"
+            >
+              Gestisci cookie
+            </button>
             <a
               href="/creative"
               className="font-mono text-[9px] md:text-[10px] text-[#555] hover:text-[#FF6600] transition-colors"

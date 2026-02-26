@@ -10,43 +10,12 @@ import Modal from '@/components/ui/Modal';
 import { formatPrice } from '@/lib/utils';
 import type { Prodotto } from '@/types';
 
-// Fallback quando il DB è vuoto
-const FALLBACK_PRODOTTI: Partial<Prodotto>[] = [
-  {
-    id: '1',
-    title: 'Starter Kit Web',
-    slug: 'starter-kit-web',
-    description: 'Template professionale Next.js con design system completo.',
-    price: 299,
-    cover_image: null,
-    tags: [],
-  },
-  {
-    id: '2',
-    title: 'Dashboard Pro',
-    slug: 'dashboard-pro',
-    description: "Dashboard admin React pronta all'uso con grafici e analytics.",
-    price: 499,
-    cover_image: null,
-    tags: [],
-  },
-  {
-    id: '3',
-    title: 'E-Commerce Engine',
-    slug: 'ecommerce-engine',
-    description: 'Piattaforma e-commerce completa con checkout e gestione ordini.',
-    price: 899,
-    cover_image: null,
-    tags: [],
-  },
-];
-
 interface ShopPreviewProps {
   prodotti?: Prodotto[];
 }
 
 export default function ShopPreview({ prodotti }: ShopPreviewProps) {
-  const items = prodotti && prodotti.length > 0 ? prodotti : FALLBACK_PRODOTTI;
+  const items = prodotti && prodotti.length > 0 ? prodotti : [];
   const [selected, setSelected] = useState<Partial<Prodotto> | null>(null);
 
   return (
@@ -59,6 +28,13 @@ export default function ShopPreview({ prodotti }: ShopPreviewProps) {
             description="Soluzioni pronte all'uso, sviluppate con i nostri standard."
           />
 
+          {items.length === 0 ? (
+            <div className="text-center py-10 md:py-16">
+              <p className="font-mono text-[10px] md:text-sm text-[#555]">
+                Prossimamente nuovi prodotti.
+              </p>
+            </div>
+          ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6">
             {items.map((prodotto, i) => (
               <Card key={prodotto.id} delay={i * 0.05}>
@@ -98,6 +74,7 @@ export default function ShopPreview({ prodotti }: ShopPreviewProps) {
               </Card>
             ))}
           </div>
+          )}
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -158,20 +135,13 @@ export default function ShopPreview({ prodotti }: ShopPreviewProps) {
                 </div>
               )}
 
-              <div className="flex flex-col sm:flex-row gap-2">
-                <Button
-                  variant="cta"
-                  size="md"
-                  href={`/preventivo?from=shop&prodotto=${encodeURIComponent(selected.title || '')}&slug=${selected.slug}`}
-                >
-                  Richiedi preventivo <ArrowRight size={12} className="ml-1.5" />
-                </Button>
-                {selected.slug && (
-                  <Button variant="secondary" size="md" href={`/shop/${selected.slug}`}>
-                    Vedi dettagli
-                  </Button>
-                )}
-              </div>
+              <Button
+                variant="cta"
+                size="md"
+                href={`/preventivo?from=shop&prodotto=${encodeURIComponent(selected.title || '')}&slug=${selected.slug}`}
+              >
+                Richiedi preventivo <ArrowRight size={12} className="ml-1.5" />
+              </Button>
             </div>
           </div>
         )}

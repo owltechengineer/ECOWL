@@ -3,14 +3,16 @@
 import { useState, useEffect } from 'react';
 import { Cookie, X } from 'lucide-react';
 
+const COOKIE_CONSENT_KEY = 'cookie_consent';
+
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem('cookie_consent');
+    const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
     if (!consent) {
       // Piccolo ritardo per non apparire subito al caricamento
-      const timer = setTimeout(() => setVisible(true), 1000);
+      const timer = setTimeout(() => setVisible(true), 800);
       return () => clearTimeout(timer);
     }
 
@@ -18,6 +20,20 @@ export default function CookieBanner() {
     if (consent === 'accepted') {
       enableAnalytics();
     }
+  }, []);
+
+  // Listener per revoca agevole: consente di riaprire il banner e modificare le preferenze
+  useEffect(() => {
+    const handleOpen = () => {
+      const hadAccepted = localStorage.getItem(COOKIE_CONSENT_KEY) === 'accepted';
+      localStorage.removeItem(COOKIE_CONSENT_KEY);
+      if (hadAccepted && typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', { analytics_storage: 'denied' });
+      }
+      setVisible(true);
+    };
+    window.addEventListener('openCookieBanner', handleOpen);
+    return () => window.removeEventListener('openCookieBanner', handleOpen);
   }, []);
 
   const enableAnalytics = () => {
@@ -30,13 +46,13 @@ export default function CookieBanner() {
   };
 
   const handleAccept = () => {
-    localStorage.setItem('cookie_consent', 'accepted');
+    localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
     enableAnalytics();
     setVisible(false);
   };
 
   const handleReject = () => {
-    localStorage.setItem('cookie_consent', 'rejected');
+    localStorage.setItem(COOKIE_CONSENT_KEY, 'rejected');
     // GA rimane in denied
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('consent', 'update', {
@@ -71,7 +87,7 @@ export default function CookieBanner() {
               </button>
               <button
                 onClick={handleReject}
-                className="px-3 py-1.5 border border-[#333] text-[#999] font-mono text-[9px] md:text-[10px] uppercase tracking-wider hover:text-white hover:border-[#555] transition-colors cursor-pointer"
+                className="px-3 py-1.5 border border-[#555] text-[#ccc] font-mono text-[9px] md:text-[10px] uppercase tracking-wider hover:text-white hover:border-[#777] transition-colors cursor-pointer"
               >
                 Rifiuta
               </button>

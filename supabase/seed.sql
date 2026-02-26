@@ -957,11 +957,11 @@ INSERT INTO preventivi (nome, email, telefono, azienda, servizi_selezionati, bud
 -- ============================================================
 INSERT INTO site_settings (site_name, logo_url, contact_email, phone, address, social_links, seo_title, seo_description)
 VALUES (
-  'OWLTECH',
+  'Fabiano Gaio',
   '/logo.svg',
-  'info@owltech.it',
-  '+39 02 1234 5678',
-  'Milano, Italia',
+  'contatti@email.it',
+  '+39 339 637 2630',
+  'Via Don Pozzi 17, 20844 Triuggio (MB), Italia',
   '{
     "instagram": "https://instagram.com/owltech.it",
     "linkedin": "https://linkedin.com/company/owltech",

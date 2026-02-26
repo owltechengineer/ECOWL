@@ -4,15 +4,26 @@ import Footer from '@/components/layout/Footer';
 import { ArrowLeft } from 'lucide-react';
 import { getSiteSettings } from '@/lib/supabase/queries';
 
+const TITOLARE = {
+  nome: 'Fabiano Gaio',
+  indirizzo: 'Via Don Pozzi 17, 20844 Triuggio (MB), Italia',
+  telefono: '+39 339 637 2630',
+  email: 'contatti@email.it',
+  codiceFiscale: 'GAIFBN04R05B729P',
+};
+
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Informativa sulla privacy di OWLTECH ai sensi del GDPR e della normativa italiana.',
+  description: 'Informativa sulla privacy ai sensi del GDPR e della normativa italiana.',
 };
 
 export default async function PrivacyPolicyPage() {
   const settings = await getSiteSettings();
-  const siteName = settings?.site_name || 'OWLTECH';
-  const email = settings?.contact_email || 'info@owltech.it';
+  const siteName = settings?.site_name || TITOLARE.nome;
+  const email = settings?.contact_email || TITOLARE.email;
+  const address = settings?.address || TITOLARE.indirizzo;
+  const phone = settings?.phone || TITOLARE.telefono;
+  const codiceFiscale = TITOLARE.codiceFiscale;
 
   return (
     <>
@@ -37,9 +48,17 @@ export default async function PrivacyPolicyPage() {
             <section>
               <h2>1. Titolare del Trattamento</h2>
               <p>
-                Il Titolare del trattamento dei dati personali è <strong>{siteName}</strong>,
-                con sede in Italia. Per qualsiasi richiesta relativa alla privacy puoi
-                contattarci all&apos;indirizzo email: <a href={`mailto:${email}`}>{email}</a>.
+                Il Titolare del trattamento dei dati personali è <strong>{siteName}</strong>
+                (Codice Fiscale: {codiceFiscale}), persona fisica residente in Italia.
+              </p>
+              <p>
+                <strong>Indirizzo:</strong> {address}<br />
+                <strong>Telefono:</strong> <a href={`tel:${phone}`}>{phone}</a><br />
+                <strong>Email:</strong> <a href={`mailto:${email}`}>{email}</a>
+              </p>
+              <p>
+                Per esercitare i tuoi diritti o per qualsiasi richiesta relativa alla privacy puoi
+                contattarci ai recapiti sopra indicati.
               </p>
             </section>
 
@@ -70,6 +89,11 @@ export default async function PrivacyPolicyPage() {
                 Il trattamento dei dati si basa su: il consenso dell&apos;utente (art. 6.1.a GDPR),
                 l&apos;esecuzione di un contratto o misure precontrattuali (art. 6.1.b GDPR),
                 e l&apos;adempimento di obblighi legali (art. 6.1.c GDPR).
+              </p>
+              <p>
+                La presente informativa è resa ai sensi dell&apos;art. 13 del Regolamento (UE) 2016/679 (GDPR)
+                e degli artt. 12 e 13 del D.lgs. 30 giugno 2003, n. 196 (Codice in materia di protezione
+                dei dati personali), come modificato dal D.lgs. 10 agosto 2018, n. 101.
               </p>
             </section>
 
@@ -121,11 +145,12 @@ export default async function PrivacyPolicyPage() {
                 <li>Limitarne il trattamento.</li>
                 <li>Opporsi al trattamento.</li>
                 <li>Richiedere la portabilità dei dati.</li>
-                <li>Revocare il consenso in qualsiasi momento.</li>
+                <li>Revocare il consenso in qualsiasi momento, senza che la liceità del trattamento basato sul consenso prima della revoca ne sia pregiudicata.</li>
                 <li>Proporre reclamo all&apos;Autorità Garante per la Protezione dei Dati Personali (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener noreferrer">www.garanteprivacy.it</a>).</li>
               </ul>
               <p>
                 Per esercitare i tuoi diritti, scrivi a: <a href={`mailto:${email}`}>{email}</a>.
+                La revoca del consenso è agevole quanto la sua prestazione.
               </p>
             </section>
 
