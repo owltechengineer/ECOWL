@@ -63,32 +63,52 @@ export default async function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2>2. Tipologie di Dati Raccolti</h2>
+              <h2>2. Ambito di Applicazione</h2>
+              <p>
+                La presente informativa si applica ai dati raccolti attraverso: il sito web pubblico
+                (contenuti, blog, progetti, shop, form preventivo), il pannello amministrativo,
+                e gli strumenti di gestione collegati alle attività del Titolare (OWLTECH, UNIKA,
+                OVER4, DOOR WATCHES, ECOCEO e altre attività future).
+              </p>
+            </section>
+
+            <section>
+              <h2>3. Tipologie di Dati Raccolti</h2>
               <p>Tra i dati personali raccolti, in modo diretto o tramite terze parti, ci sono:</p>
               <ul>
-                <li><strong>Dati di contatto:</strong> nome, email, telefono, azienda — forniti volontariamente tramite il modulo di richiesta preventivo.</li>
+                <li><strong>Dati di contatto:</strong> nome, email, telefono, azienda — forniti tramite form preventivo, contatti strategici o comunicazioni.</li>
                 <li><strong>Dati di navigazione:</strong> indirizzo IP, tipo di browser, sistema operativo, pagine visitate, orari di accesso — raccolti automaticamente tramite cookie e strumenti di analisi.</li>
-                <li><strong>File caricati:</strong> documenti, immagini o altri file allegati alle richieste di preventivo.</li>
+                <li><strong>File e documenti:</strong> documenti, immagini o file allegati alle richieste di preventivo, ricerche di mercato, articoli, link.</li>
+                <li><strong>Dati di progetto:</strong> informazioni su progetti, task, scadenze, obiettivi e progressi inseriti negli strumenti di gestione.</li>
+                <li><strong>Note e conoscenze:</strong> note, idee, processi e contenuti inseriti nei moduli di gestione conoscenze.</li>
+                <li><strong>Credenziali di accesso:</strong> dati per l&apos;accesso all&apos;area amministrativa (email, token di sessione).</li>
               </ul>
             </section>
 
             <section>
-              <h2>3. Finalità del Trattamento</h2>
+              <h2>4. Finalità del Trattamento</h2>
               <p>I dati personali sono trattati per le seguenti finalità:</p>
               <ul>
                 <li>Rispondere alle richieste di preventivo e fornire i servizi richiesti.</li>
-                <li>Comunicazioni relative ai servizi offerti.</li>
+                <li>Comunicazioni relative ai servizi offerti e alle attività del Titolare.</li>
+                <li>Gestione di progetti, task, scadenze e obiettivi per ciascuna attività.</li>
+                <li>Organizzazione di note, contatti, documenti e conoscenze per attività.</li>
+                <li>Ricerca di bandi, opportunità, finanziamenti e analisi di mercato (anche tramite strumenti automatizzati).</li>
                 <li>Analisi statistiche anonime sull&apos;utilizzo del sito (Google Analytics).</li>
+                <li>Generazione di report, visualizzazioni e stime per supporto decisionale.</li>
+                <li>Esportazione di dati e report per uso interno.</li>
                 <li>Adempimento di obblighi legali e fiscali.</li>
               </ul>
             </section>
 
             <section>
-              <h2>4. Base Giuridica del Trattamento</h2>
+              <h2>5. Base Giuridica del Trattamento</h2>
               <p>
                 Il trattamento dei dati si basa su: il consenso dell&apos;utente (art. 6.1.a GDPR),
                 l&apos;esecuzione di un contratto o misure precontrattuali (art. 6.1.b GDPR),
-                e l&apos;adempimento di obblighi legali (art. 6.1.c GDPR).
+                l&apos;adempimento di obblighi legali (art. 6.1.c GDPR).
+                Per la gestione interna di progetti, conoscenze e report il Titolare si avvale
+                del legittimo interesse (art. 6.1.f GDPR).
               </p>
               <p>
                 La presente informativa è resa ai sensi dell&apos;art. 13 del Regolamento (UE) 2016/679 (GDPR)
@@ -98,7 +118,7 @@ export default async function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2>5. Modalità di Trattamento</h2>
+              <h2>6. Modalità di Trattamento</h2>
               <p>
                 I dati sono trattati con strumenti informatici e/o telematici, con logiche
                 strettamente connesse alle finalità indicate, e con l&apos;adozione di adeguate
@@ -108,17 +128,21 @@ export default async function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2>6. Conservazione dei Dati</h2>
+              <h2>7. Conservazione dei Dati</h2>
               <p>
                 I dati personali sono conservati per il tempo necessario a soddisfare le
                 finalità per cui sono stati raccolti, e comunque non oltre i termini previsti
-                dalla normativa vigente. I dati relativi alle richieste di preventivo sono
-                conservati per un massimo di 24 mesi dalla raccolta.
+                dalla normativa vigente.
               </p>
+              <ul>
+                <li>Richieste di preventivo: massimo 24 mesi dalla raccolta.</li>
+                <li>Dati di progetto e conoscenze: per la durata dell&apos;attività e comunque non oltre 5 anni dalla cessazione.</li>
+                <li>Credenziali e log di accesso: per il tempo strettamente necessario alla sicurezza.</li>
+              </ul>
             </section>
 
             <section>
-              <h2>7. Comunicazione e Diffusione dei Dati</h2>
+              <h2>8. Comunicazione e Diffusione dei Dati</h2>
               <p>
                 I dati personali non saranno diffusi. Potranno essere comunicati a:
               </p>
@@ -132,10 +156,25 @@ export default async function PrivacyPolicyPage() {
                 <li><strong>Google Analytics</strong> — Analisi del traffico web (con anonimizzazione IP).</li>
                 <li><strong>Vercel</strong> — Hosting dell&apos;applicazione.</li>
               </ul>
+              <p>
+                I dati sono organizzati per attività (OWLTECH, UNIKA, OVER4, DOOR WATCHES, ECOCEO)
+                e possono essere esportati per uso interno o reportistica.
+              </p>
             </section>
 
             <section>
-              <h2>8. Diritti dell&apos;Interessato</h2>
+              <h2>9. Trattamenti Automatizzati e AI</h2>
+              <p>
+                Il Titolare può avvalersi di strumenti automatizzati per la ricerca di bandi,
+                opportunità, analisi di competitor e mercato. Tali trattamenti non producono
+                decisioni che incidono legalmente sulla persona né profilazione con effetti
+                significativi. L&apos;utente può richiedere l&apos;intervento umano o contestare
+                l&apos;esito esercitando i diritti di cui alla sezione successiva.
+              </p>
+            </section>
+
+            <section>
+              <h2>10. Diritti dell&apos;Interessato</h2>
               <p>
                 Ai sensi degli articoli 15-22 del GDPR, l&apos;utente ha il diritto di:
               </p>
@@ -155,7 +194,7 @@ export default async function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2>9. Trasferimento Dati Extra-UE</h2>
+              <h2>11. Trasferimento Dati Extra-UE</h2>
               <p>
                 Alcuni servizi di terze parti (es. Google Analytics) possono comportare il
                 trasferimento di dati verso paesi extra-UE. In tal caso, il trasferimento
@@ -165,7 +204,7 @@ export default async function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2>10. Modifiche alla presente Informativa</h2>
+              <h2>12. Modifiche alla presente Informativa</h2>
               <p>
                 Il Titolare si riserva il diritto di apportare modifiche alla presente
                 informativa in qualsiasi momento. Gli utenti sono invitati a consultare

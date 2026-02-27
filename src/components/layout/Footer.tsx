@@ -13,7 +13,6 @@ export default function Footer({ settings }: FooterProps) {
   const siteName = settings?.site_name || 'OWLTECH';
   const email = settings?.contact_email || 'info@owltech.com';
   const phone = settings?.phone || '+39 02 1234 5678';
-  const address = settings?.address || 'Milano, Italia';
   const socialLinks = settings?.social_links || {};
 
   // Costruisci la lista dei social con fallback
@@ -56,7 +55,6 @@ export default function Footer({ settings }: FooterProps) {
             <ul className="space-y-1 font-mono text-[8px] text-[#999]">
               <li><a href={`mailto:${email}`} className="hover:text-white">{email}</a></li>
               {phone && <li>{phone}</li>}
-              {address && <li>{address}</li>}
             </ul>
           </div>
           <div>
@@ -105,7 +103,6 @@ export default function Footer({ settings }: FooterProps) {
             <ul className="space-y-3 font-mono text-xs text-[#999]">
               <li><a href={`mailto:${email}`} className="hover:text-white transition-colors">{email}</a></li>
               {phone && <li>{phone}</li>}
-              {address && <li>{address}</li>}
             </ul>
           </div>
         </div>
